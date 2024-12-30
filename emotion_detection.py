@@ -9,22 +9,20 @@ def emotion_detector(text_to_analyze):
     myobj = { "raw_document": { "text": text_to_analyze } }
 
     response = requests.post(url, json = myobj, headers = header)
+    
+    #Convert the response text into a dictionary
     formatted_response = json.loads(response.text)
-    #emotions = ['emotionPredictions'][0]['emotion'].items()
-    #for emotion, score in emotions:
-    #    for emotion, score in emotions:
-    #for x in len(['emotionPredictions'][0]['emotion']):
-    #    emotions.append(['emotionPredictions'][0]['emotion'][x])
 
-    anger_score = formatted_response['emotionPredictions'][0]['emotion']['anger']
-    disgust_score = formatted_response['emotionPredictions'][0]['emotion']['disgust']
-    fear_score = formatted_response['emotionPredictions'][0]['emotion']['fear']
-    joy_score = formatted_response['emotionPredictions'][0]['emotion']['joy']
-    sadness_score = formatted_response['emotionPredictions'][0]['emotion']['sadness']
+    #Extract the required set of emotions, including anger, disgust, 
+    #...fear, joy and sadness, along with their scores.
+    emotions_list = formatted_response['emotionPredictions'][0]['emotion'].items()
+    emotions_list = dict(emotions_list)
 
-    #for x in (anger_score, disgust_score, fear_score, joy_score, sadness_score):
-    #    if 
+    #The code logic to find the dominant emotion (highest score).
+    dominant_emotion = max(emotions_list, key=emotions_list.get)
 
-    #dominant_emotion = max(anger_score, disgust_score, fear_score, joy_score, sadness_score)
-
-    return response.text
+    #add dominant_emotion to the strtructure
+    emotions_list["dominant_emotion"] = dominant_emotion
+    emotions = json.dumps(dict(emotions_list))
+    
+    return emotions
