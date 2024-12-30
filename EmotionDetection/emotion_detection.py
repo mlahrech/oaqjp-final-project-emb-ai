@@ -23,6 +23,6 @@ def emotion_detector(text_to_analyze):
 
     #add dominant_emotion to the strtructure
     emotions_list["dominant_emotion"] = dominant_emotion
-    emotions = json.dumps(dict(emotions_list))
-    
+    emotions = (dict(emotions_list))
+
     return emotions
