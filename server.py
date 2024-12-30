@@ -1,3 +1,7 @@
+''' Emotion Detection app
+    localhost:5000.
+'''
+
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -13,12 +17,12 @@ def emotion_detect():
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
 
-    if response['dominant_emotion'] == None:
+    if response['dominant_emotion'] is None:
         return "Invalid text! Please try again!. "
     # Extracting the dominant emotion
     dominant_emotion = response.pop("dominant_emotion")
     # Constructing the response string
-    response_formatted = f"For the given statement, the system response is "
+    response_formatted = "For the given statement, the system response is "
     response_formatted += ", ".join([f"'{key}': {value}" for key, value in response.items()])
     response_formatted += f". The dominant emotion is {dominant_emotion}."
 
