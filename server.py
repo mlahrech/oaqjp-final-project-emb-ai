@@ -12,6 +12,9 @@ def emotion_detect():
     '''
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
+
+    if response['dominant_emotion'] == None:
+        return "Invalid text! Please try again!. "
     # Extracting the dominant emotion
     dominant_emotion = response.pop("dominant_emotion")
     # Constructing the response string
